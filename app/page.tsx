@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const whatsappUrl =
   "https://api.whatsapp.com/send?phone=5547992290029&text=Ol%C3%A1!%20Gostaria%20de%20realizar%20uma%20reserva%20no%20Cambori%C3%BA%20Hotel.";
@@ -96,6 +96,8 @@ const amenities = [
   { label: "Recepção 24h", icon: "icon-bell" },
 ];
 
+const AMENITIES_PER_PAGE = 3;
+
 const gallery = [
   { src: "/hotel/fachada-camboriu-hotel.png", alt: "Fachada do Camboriú Hotel", caption: "Fachada" },
   { src: "/hotel/apartamento-solteiro.jpg", alt: "Apartamento Solteiro", caption: "Apartamento Solteiro" },
@@ -152,11 +154,15 @@ function FacebookIcon({ className = "" }: { className?: string }) {
 }
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [roomPhotoIndexes, setRoomPhotoIndexes] = useState<Record<string, number>>({});
+  const [amenitiesPage, setAmenitiesPage] = useState(0);
+  const amenitiesRef = useRef<HTMLDivElement>(null);
 
   const activeGallery = gallery[galleryIndex];
   const galleryThumbs = gallery.map((photo, index) => ({ ...photo, index }));
+  const amenitiesPageCount = Math.ceil(amenities.length / AMENITIES_PER_PAGE);
 
   function setRoomPhoto(roomId: string, index: number) {
     setRoomPhotoIndexes((current) => ({ ...current, [roomId]: index }));
@@ -167,6 +173,29 @@ export default function Home() {
       ...current,
       [roomId]: nextIndex(current[roomId] ?? 0, direction, total),
     }));
+  }
+
+  function setAmenitiesCarouselPage(index: number) {
+    setAmenitiesPage(index);
+    amenitiesRef.current?.scrollTo({
+      left: index * amenitiesRef.current.clientWidth,
+      behavior: "smooth",
+    });
+  }
+
+  function moveAmenitiesPage(direction: number) {
+    setAmenitiesCarouselPage(nextIndex(amenitiesPage, direction, amenitiesPageCount));
+  }
+
+  function syncAmenitiesPage() {
+    const carousel = amenitiesRef.current;
+
+    if (!carousel) {
+      return;
+    }
+
+    const nextPage = Math.round(carousel.scrollLeft / Math.max(carousel.clientWidth, 1));
+    setAmenitiesPage(Math.min(amenitiesPageCount - 1, Math.max(0, nextPage)));
   }
 
   return (
@@ -213,9 +242,24 @@ export default function Home() {
               <BrandLogo />
             </a>
 
-            <nav className="nav-menu" aria-label="Navegação principal">
+            <button
+              className="menu-toggle"
+              type="button"
+              aria-controls="site-menu"
+              aria-expanded={isMenuOpen}
+              onClick={() => setIsMenuOpen((current) => !current)}
+            >
+              <span className="menu-toggle-icon" aria-hidden="true" />
+              Menu
+            </button>
+
+            <nav
+              className={`nav-menu${isMenuOpen ? " is-open" : ""}`}
+              id="site-menu"
+              aria-label="Navegação principal"
+            >
               {navItems.map(([label, href]) => (
-                <a href={href} key={label}>
+                <a href={href} key={label} onClick={() => setIsMenuOpen(false)}>
                   {label}
                 </a>
               ))}
@@ -373,13 +417,32 @@ export default function Home() {
 
       <section className="amenities" id="comodidades">
         <div className="melo-container">
-          <div className="amenities-grid" aria-label="Comodidades do hotel">
+          <div
+            className="amenities-grid"
+            aria-label="Comodidades do hotel"
+            ref={amenitiesRef}
+            onScroll={syncAmenitiesPage}
+          >
             {amenities.map(({ label, icon }) => (
               <div className="amenity" key={label}>
                 <span className={`line-icon ${icon}`} aria-hidden="true" />
                 <p>{label}</p>
               </div>
             ))}
+          </div>
+
+          <div className="amenities-pager" aria-label="Navegar comodidades">
+            <button type="button" onClick={() => moveAmenitiesPage(-1)} aria-label="Comodidades anteriores">
+              ‹
+            </button>
+            <div className="amenities-dots" aria-hidden="true">
+              {Array.from({ length: amenitiesPageCount }).map((_, index) => (
+                <span className={index === amenitiesPage ? "is-active" : ""} key={index} />
+              ))}
+            </div>
+            <button type="button" onClick={() => moveAmenitiesPage(1)} aria-label="Próximas comodidades">
+              ›
+            </button>
           </div>
 
           <div className="important-box">

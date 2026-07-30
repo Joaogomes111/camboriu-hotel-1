@@ -86,7 +86,6 @@ const amenities = [
   { label: "Cama Box", icon: "icon-bed" },
   { label: "TV", icon: "icon-tv" },
   { label: "TV a Cabo", icon: "icon-satellite" },
-  { label: "Chuveiro", icon: "icon-shower" },
   { label: "Frigobar", icon: "icon-fridge" },
   { label: "Wi-Fi", icon: "icon-wifi" },
   { label: "Cofre", icon: "icon-safe" },

@@ -18,7 +18,7 @@ const navItems = [
 ];
 
 const heroImage = {
-  src: "/hotel/balneario-camboriu-novo.png",
+  src: "/hotel/balneario-camboriu-hero-crop.png",
   alt: "Vista aérea de Balneário Camboriú",
 };
 

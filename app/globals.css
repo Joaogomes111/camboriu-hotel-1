@@ -1505,9 +1505,7 @@ main {
   }
 
   .hero-shade {
-    background:
-      linear-gradient(180deg, rgba(0, 10, 24, 0.48) 0%, rgba(0, 16, 36, 0.3) 42%, rgba(0, 10, 22, 0.16) 100%),
-      linear-gradient(90deg, rgba(0, 10, 24, 0.2) 0%, rgba(0, 10, 24, 0.04) 100%);
+    background: rgba(0, 10, 24, 0.2);
   }
 
   .nav-row {
@@ -1522,19 +1520,6 @@ main {
     border-bottom: 0;
     background: transparent;
     box-shadow: none;
-  }
-
-  .nav-row::before {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    z-index: -1;
-    width: 100vw;
-    content: "";
-    background: rgba(0, 15, 34, 0.16);
-    transform: translateX(-50%);
-    pointer-events: none;
   }
 
   .logo-wrap {

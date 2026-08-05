@@ -557,26 +557,37 @@ main {
   content: "";
 }
 
+.main-title > .title-icon-room {
+  width: 52px;
+  height: 44px;
+  background:
+    radial-gradient(circle at 50% 41%, transparent 0 5px, currentColor 5.5px 8px, transparent 8.5px),
+    radial-gradient(circle at 18px 30px, currentColor 0 4px, transparent 4.5px),
+    linear-gradient(currentColor 0 0) 8px 23px / 3px 19px no-repeat,
+    linear-gradient(currentColor 0 0) 41px 23px / 3px 19px no-repeat,
+    linear-gradient(currentColor 0 0) 8px 40px / 36px 3px no-repeat,
+    linear-gradient(currentColor 0 0) 16px 32px / 27px 3px no-repeat,
+    linear-gradient(currentColor 0 0) 16px 36px / 27px 3px no-repeat;
+}
+
 .title-icon-room::before {
-  top: 5px;
-  left: 2px;
-  width: 17px;
-  height: 17px;
-  border: 2px solid currentColor;
-  border-radius: 999px;
-  box-shadow: inset 0 0 0 4px var(--white);
+  top: -3px;
+  left: 9px;
+  width: 32px;
+  height: 32px;
+  border-top: 3px solid currentColor;
+  border-left: 3px solid currentColor;
+  transform: rotate(45deg);
 }
 
 .title-icon-room::after {
-  top: 12px;
-  left: 17px;
-  width: 23px;
-  height: 13px;
-  background:
-    linear-gradient(currentColor 0 0) 0 5px / 100% 2px no-repeat,
-    linear-gradient(currentColor 0 0) 15px 5px / 2px 8px no-repeat,
-    linear-gradient(currentColor 0 0) 21px 5px / 2px 6px no-repeat;
-  transform: rotate(-2deg);
+  top: 7px;
+  left: 14px;
+  width: 21px;
+  height: 21px;
+  border-top: 3px solid currentColor;
+  border-left: 3px solid currentColor;
+  transform: rotate(45deg);
 }
 
 .title-icon-gallery::before {
@@ -1773,6 +1784,14 @@ main {
     width: 34px;
     height: 29px;
     margin-bottom: 14px;
+  }
+
+  .main-title > .title-icon-room {
+    width: 52px;
+    height: 44px;
+    margin-bottom: 4px;
+    transform: scale(0.82);
+    transform-origin: center;
   }
 
   .main-title p {

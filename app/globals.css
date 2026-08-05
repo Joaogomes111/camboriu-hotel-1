@@ -1517,7 +1517,9 @@ main {
     gap: 12px;
     padding: 14px 0 16px;
     overflow: visible;
-    background: rgba(0, 18, 42, 0.22);
+    border-bottom: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .logo-wrap {
@@ -1542,8 +1544,8 @@ main {
     min-width: 164px;
     min-height: 42px;
     padding: 0 18px;
-    border: 1px solid rgba(255, 255, 255, 0.66);
-    background: rgba(0, 17, 37, 0.62);
+    border: 0;
+    background: rgba(0, 17, 37, 0.28);
     color: var(--white);
     font-size: 0.78rem;
     font-weight: 900;
@@ -1585,7 +1587,7 @@ main {
     gap: 0;
     padding: 8px 14px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.54);
+    border: 0;
     border-radius: 10px;
     background: rgba(0, 17, 37, 0.74);
     box-shadow: 0 18px 32px rgba(0, 0, 0, 0.18);
@@ -1602,7 +1604,7 @@ main {
     min-height: 39px;
     padding: 10px 8px 9px;
     border: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 0;
     background: transparent;
     font-size: 0.7rem;
     letter-spacing: 0.04em;

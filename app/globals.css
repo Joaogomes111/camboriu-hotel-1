@@ -408,7 +408,7 @@ main {
 
 .section-title span,
 .feature-copy span,
-.main-title > span,
+.main-title > .title-icon,
 .section-title > span {
   display: block;
   margin-bottom: 18px;
@@ -534,26 +534,65 @@ main {
   text-align: center;
 }
 
-.main-title > span {
+.main-title > .title-icon {
   position: relative;
-  width: 32px;
-  height: 32px;
+  display: block;
+  width: 40px;
+  height: 34px;
   margin: 0 auto 20px;
+  color: var(--blue);
 }
 
-.main-title > span::before,
-.main-title > span::after {
+.main-title > .title-icon::before,
+.main-title > .title-icon::after {
   position: absolute;
   content: "";
-  border: 2px solid var(--blue);
 }
 
-.main-title > span::before {
-  inset: 4px 8px;
+.title-icon-room::before {
+  right: 2px;
+  bottom: 8px;
+  left: 2px;
+  height: 15px;
+  border: 2px solid currentColor;
+  border-radius: 4px 4px 1px 1px;
 }
 
-.main-title > span::after {
-  inset: 8px 4px;
+.title-icon-room::after {
+  top: 8px;
+  left: 6px;
+  width: 12px;
+  height: 8px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  box-shadow:
+    16px 0 0 -2px currentColor,
+    -3px 20px 0 -2px currentColor,
+    29px 20px 0 -2px currentColor;
+}
+
+.title-icon-gallery::before {
+  top: 4px;
+  left: 8px;
+  width: 24px;
+  height: 20px;
+  border: 2px solid currentColor;
+  background:
+    radial-gradient(circle at 74% 28%, currentColor 0 2px, transparent 3px),
+    linear-gradient(135deg, transparent 55%, rgba(0, 107, 182, 0.18) 56%);
+  box-shadow:
+    -8px 8px 0 -2px var(--white),
+    -8px 8px 0 0 currentColor;
+}
+
+.title-icon-gallery::after {
+  left: 14px;
+  bottom: 5px;
+  width: 16px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: skewX(-22deg);
 }
 
 .main-title h1 {
@@ -1467,8 +1506,8 @@ main {
 
   .hero-shade {
     background:
-      linear-gradient(180deg, rgba(0, 10, 24, 0.88) 0%, rgba(0, 16, 36, 0.7) 42%, rgba(0, 10, 22, 0.42) 100%),
-      linear-gradient(90deg, rgba(0, 10, 24, 0.44) 0%, rgba(0, 10, 24, 0.15) 100%);
+      linear-gradient(180deg, rgba(0, 10, 24, 0.48) 0%, rgba(0, 16, 36, 0.3) 42%, rgba(0, 10, 22, 0.16) 100%),
+      linear-gradient(90deg, rgba(0, 10, 24, 0.2) 0%, rgba(0, 10, 24, 0.04) 100%);
   }
 
   .nav-row {
@@ -1626,6 +1665,13 @@ main {
     white-space: nowrap;
   }
 
+  .booking-field:nth-child(2) strong {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
   .booking-field.wide strong {
     font-size: 0.82rem;
   }
@@ -1672,7 +1718,7 @@ main {
 
   .section-title span,
   .feature-copy span,
-  .main-title > span,
+  .main-title > .title-icon,
   .section-title > span {
     margin-bottom: 12px;
     font-size: 0.68rem;
@@ -1689,9 +1735,9 @@ main {
     margin-bottom: 30px;
   }
 
-  .main-title > span {
-    width: 26px;
-    height: 26px;
+  .main-title > .title-icon {
+    width: 34px;
+    height: 29px;
     margin-bottom: 14px;
   }
 

@@ -340,7 +340,7 @@ export default function Home() {
       <section className="rooms" id="acomodacoes">
         <div className="melo-container">
           <div className="main-title">
-            <span />
+            <span className="title-icon title-icon-room" />
             <h1>Acomodações</h1>
             <p>
               Apartamentos para viagens individuais, casais, famílias e grupos.
@@ -481,7 +481,7 @@ export default function Home() {
       <section className="gallery" id="galeria">
         <div className="melo-container">
           <div className="main-title">
-            <span />
+            <span className="title-icon title-icon-gallery" />
             <h1>Galeria</h1>
             <p>Quartos, banheiro, café da manhã e fachada com fotos reais do Camboriú Hotel.</p>
           </div>

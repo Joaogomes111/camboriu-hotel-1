@@ -558,26 +558,25 @@ main {
 }
 
 .title-icon-room::before {
-  right: 3px;
-  bottom: 10px;
-  left: 3px;
-  height: 16px;
+  top: 5px;
+  left: 2px;
+  width: 17px;
+  height: 17px;
   border: 2px solid currentColor;
-  border-radius: 5px 5px 2px 2px;
-  background:
-    linear-gradient(currentColor 0 0) 0 50% / 100% 2px no-repeat,
-    linear-gradient(currentColor 0 0) 9px 5px / 8px 5px no-repeat,
-    linear-gradient(currentColor 0 0) 23px 5px / 8px 5px no-repeat;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 4px var(--white);
 }
 
 .title-icon-room::after {
-  right: 7px;
-  bottom: 5px;
-  left: 7px;
-  height: 6px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  border-left: 2px solid currentColor;
+  top: 12px;
+  left: 17px;
+  width: 23px;
+  height: 13px;
+  background:
+    linear-gradient(currentColor 0 0) 0 5px / 100% 2px no-repeat,
+    linear-gradient(currentColor 0 0) 15px 5px / 2px 8px no-repeat,
+    linear-gradient(currentColor 0 0) 21px 5px / 2px 6px no-repeat;
+  transform: rotate(-2deg);
 }
 
 .title-icon-gallery::before {

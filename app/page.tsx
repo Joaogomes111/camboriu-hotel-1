@@ -1,9 +1,15 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const whatsappUrl =
   "https://api.whatsapp.com/send?phone=5547992290029&text=Ol%C3%A1!%20Gostaria%20de%20realizar%20uma%20reserva%20no%20Cambori%C3%BA%20Hotel.";
+
+declare global {
+  interface Window {
+    dataLayer?: Array<Record<string, unknown>>;
+  }
+}
 
 const mapsUrl =
   "https://www.google.com/maps/search/?api=1&query=Av.%20do%20Estado%20Dalmo%20Vieira%2C%205029%20-%20Centro%2C%20Balne%C3%A1rio%20Cambori%C3%BA%20-%20SC%2C%2088330-663";
@@ -18,7 +24,7 @@ const navItems = [
 ];
 
 const heroImage = {
-  src: "/hotel/balneario-camboriu-hero-crop.png",
+  src: "/hotel/balneario-camboriu-novo.png",
   alt: "Vista aérea de Balneário Camboriú",
 };
 
@@ -86,6 +92,7 @@ const amenities = [
   { label: "Cama Box", icon: "icon-bed" },
   { label: "TV", icon: "icon-tv" },
   { label: "TV a Cabo", icon: "icon-satellite" },
+  { label: "Chuveiro", icon: "icon-shower" },
   { label: "Frigobar", icon: "icon-fridge" },
   { label: "Wi-Fi", icon: "icon-wifi" },
   { label: "Cofre", icon: "icon-safe" },
@@ -94,8 +101,6 @@ const amenities = [
   { label: "Café da Manhã*", icon: "icon-coffee" },
   { label: "Recepção 24h", icon: "icon-bell" },
 ];
-
-const AMENITIES_PER_PAGE = 3;
 
 const gallery = [
   { src: "/hotel/fachada-camboriu-hotel.png", alt: "Fachada do Camboriú Hotel", caption: "Fachada" },
@@ -112,6 +117,15 @@ const gallery = [
 
 function nextIndex(current: number, direction: number, total: number) {
   return (current + direction + total) % total;
+}
+
+function trackWhatsAppClick(clickLocation: string) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: "whatsapp_reservation_click",
+    click_location: clickLocation,
+    link_url: whatsappUrl,
+  });
 }
 
 function BrandLogo() {
@@ -153,15 +167,11 @@ function FacebookIcon({ className = "" }: { className?: string }) {
 }
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [roomPhotoIndexes, setRoomPhotoIndexes] = useState<Record<string, number>>({});
-  const [amenitiesPage, setAmenitiesPage] = useState(0);
-  const amenitiesRef = useRef<HTMLDivElement>(null);
 
   const activeGallery = gallery[galleryIndex];
   const galleryThumbs = gallery.map((photo, index) => ({ ...photo, index }));
-  const amenitiesPageCount = Math.ceil(amenities.length / AMENITIES_PER_PAGE);
 
   function setRoomPhoto(roomId: string, index: number) {
     setRoomPhotoIndexes((current) => ({ ...current, [roomId]: index }));
@@ -172,29 +182,6 @@ export default function Home() {
       ...current,
       [roomId]: nextIndex(current[roomId] ?? 0, direction, total),
     }));
-  }
-
-  function setAmenitiesCarouselPage(index: number) {
-    setAmenitiesPage(index);
-    amenitiesRef.current?.scrollTo({
-      left: index * amenitiesRef.current.clientWidth,
-      behavior: "smooth",
-    });
-  }
-
-  function moveAmenitiesPage(direction: number) {
-    setAmenitiesCarouselPage(nextIndex(amenitiesPage, direction, amenitiesPageCount));
-  }
-
-  function syncAmenitiesPage() {
-    const carousel = amenitiesRef.current;
-
-    if (!carousel) {
-      return;
-    }
-
-    const nextPage = Math.round(carousel.scrollLeft / Math.max(carousel.clientWidth, 1));
-    setAmenitiesPage(Math.min(amenitiesPageCount - 1, Math.max(0, nextPage)));
   }
 
   return (
@@ -211,7 +198,13 @@ export default function Home() {
               <a className="top-icon-link" href="#home" aria-label="Ir para o início">
                 <HomeIcon className="top-icon home-icon" />
               </a>
-              <a className="top-phone" href={whatsappUrl} target="_blank" rel="noreferrer">
+              <a
+                className="top-phone"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackWhatsAppClick("top_phone")}
+              >
                 <WhatsAppIcon className="top-icon whats-icon" />
                 47 99229-0029
               </a>
@@ -241,24 +234,9 @@ export default function Home() {
               <BrandLogo />
             </a>
 
-            <button
-              className="menu-toggle"
-              type="button"
-              aria-controls="site-menu"
-              aria-expanded={isMenuOpen}
-              onClick={() => setIsMenuOpen((current) => !current)}
-            >
-              <span className="menu-toggle-icon" aria-hidden="true" />
-              Menu
-            </button>
-
-            <nav
-              className={`nav-menu${isMenuOpen ? " is-open" : ""}`}
-              id="site-menu"
-              aria-label="Navegação principal"
-            >
+            <nav className="nav-menu" aria-label="Navegação principal">
               {navItems.map(([label, href]) => (
-                <a href={href} key={label} onClick={() => setIsMenuOpen(false)}>
+                <a href={href} key={label}>
                   {label}
                 </a>
               ))}
@@ -289,7 +267,13 @@ export default function Home() {
               <strong>Centro de Balneário Camboriú</strong>
             </div>
           </div>
-          <a className="reserve-button" href={whatsappUrl} target="_blank" rel="noreferrer">
+          <a
+            className="reserve-button"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackWhatsAppClick("booking_strip")}
+          >
             Reservar agora
           </a>
         </div>
@@ -330,7 +314,13 @@ export default function Home() {
               e momentos em família. A equipe oferece suporte para quem deseja
               conhecer as atrações do turismo local.
             </p>
-            <a className="outline-button" href={whatsappUrl} target="_blank" rel="noreferrer">
+            <a
+              className="outline-button"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackWhatsAppClick("feature_reception")}
+            >
               Falar com a recepção
             </a>
           </div>
@@ -340,7 +330,7 @@ export default function Home() {
       <section className="rooms" id="acomodacoes">
         <div className="melo-container">
           <div className="main-title">
-            <span className="title-icon title-icon-room" />
+            <span />
             <h1>Acomodações</h1>
             <p>
               Apartamentos para viagens individuais, casais, famílias e grupos.
@@ -403,7 +393,12 @@ export default function Home() {
                         ))}
                       </div>
                     ) : null}
-                    <a href={whatsappUrl} target="_blank" rel="noreferrer">
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => trackWhatsAppClick(`room_${room.id}`)}
+                    >
                       Reservar agora
                     </a>
                   </div>
@@ -416,32 +411,13 @@ export default function Home() {
 
       <section className="amenities" id="comodidades">
         <div className="melo-container">
-          <div
-            className="amenities-grid"
-            aria-label="Comodidades do hotel"
-            ref={amenitiesRef}
-            onScroll={syncAmenitiesPage}
-          >
+          <div className="amenities-grid" aria-label="Comodidades do hotel">
             {amenities.map(({ label, icon }) => (
               <div className="amenity" key={label}>
                 <span className={`line-icon ${icon}`} aria-hidden="true" />
                 <p>{label}</p>
               </div>
             ))}
-          </div>
-
-          <div className="amenities-pager" aria-label="Navegar comodidades">
-            <button type="button" onClick={() => moveAmenitiesPage(-1)} aria-label="Comodidades anteriores">
-              ‹
-            </button>
-            <div className="amenities-dots" aria-hidden="true">
-              {Array.from({ length: amenitiesPageCount }).map((_, index) => (
-                <span className={index === amenitiesPage ? "is-active" : ""} key={index} />
-              ))}
-            </div>
-            <button type="button" onClick={() => moveAmenitiesPage(1)} aria-label="Próximas comodidades">
-              ›
-            </button>
           </div>
 
           <div className="important-box">
@@ -481,7 +457,7 @@ export default function Home() {
       <section className="gallery" id="galeria">
         <div className="melo-container">
           <div className="main-title">
-            <span className="title-icon title-icon-gallery" />
+            <span />
             <h1>Galeria</h1>
             <p>Quartos, banheiro, café da manhã e fachada com fotos reais do Camboriú Hotel.</p>
           </div>
@@ -557,7 +533,13 @@ export default function Home() {
               dúvidas com a equipe.
             </p>
           </div>
-          <a className="reserve-button" href={whatsappUrl} target="_blank" rel="noreferrer">
+          <a
+            className="reserve-button"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackWhatsAppClick("final_cta")}
+          >
             Chamar no WhatsApp
           </a>
         </div>
@@ -595,7 +577,14 @@ export default function Home() {
         </div>
       </footer>
 
-      <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Reservar pelo WhatsApp">
+      <a
+        className="whatsapp-float"
+        href={whatsappUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Reservar pelo WhatsApp"
+        onClick={() => trackWhatsAppClick("floating_whatsapp")}
+      >
         <WhatsAppIcon className="float-whats-icon" />
       </a>
     </main>

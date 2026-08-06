@@ -6,8 +6,12 @@ export const metadata: Metadata = {
   description:
     "Hospedagem familiar no Centro de Balneário Camboriú, com quartos confortáveis, garagem, wi-fi e reserva direta pelo WhatsApp.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "Camboriú Hotel",

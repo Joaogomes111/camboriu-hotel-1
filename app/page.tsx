@@ -172,6 +172,7 @@ export default function Home() {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [roomPhotoIndexes, setRoomPhotoIndexes] = useState<Record<string, number>>({});
   const [amenitiesPage, setAmenitiesPage] = useState(0);
+  const [distanceImageFailed, setDistanceImageFailed] = useState(false);
   const amenitiesRef = useRef<HTMLDivElement>(null);
 
   const activeGallery = gallery[galleryIndex];
@@ -582,10 +583,43 @@ export default function Home() {
           </div>
           <div className="location-visuals">
             <figure className="distance-card">
-              <img
-                src="/hotel/distancias-pontos-turisticos.png"
-                alt="Mapa visual com a distância do Camboriú Hotel até pontos turísticos da região"
-              />
+              {distanceImageFailed ? (
+                <div
+                  className="distance-fallback"
+                  role="img"
+                  aria-label="Distâncias do Camboriú Hotel até pontos turísticos da região"
+                >
+                  <div className="distance-fallback-badge">CH</div>
+                  <ul>
+                    <li>
+                      <strong>Balneário Shopping</strong>
+                      <span>3 min (1,0 km)</span>
+                    </li>
+                    <li>
+                      <strong>Parque dos Dinossauros</strong>
+                      <span>4 min (1,1 km)</span>
+                    </li>
+                    <li>
+                      <strong>Roda Gigante</strong>
+                      <span>11 min (3,9 km)</span>
+                    </li>
+                    <li>
+                      <strong>Parque Unipraias</strong>
+                      <span>15 min (5,5 km)</span>
+                    </li>
+                    <li>
+                      <strong>Beto Carrero</strong>
+                      <span>35-50 min via BR-101</span>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <img
+                  src="/distancias-pontos-turisticos.png"
+                  alt="Mapa visual com a distância do Camboriú Hotel até pontos turísticos da região"
+                  onError={() => setDistanceImageFailed(true)}
+                />
+              )}
               <figcaption>Fácil acesso aos principais pontos turísticos da região.</figcaption>
             </figure>
             <div className="map-card">

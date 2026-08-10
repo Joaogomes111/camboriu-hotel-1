@@ -1286,68 +1286,6 @@ main {
   object-position: center center;
 }
 
-.distance-fallback {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 430px;
-  padding: 28px 26px;
-  background:
-    linear-gradient(135deg, rgba(0, 27, 53, 0.92), rgba(0, 107, 182, 0.94)),
-    var(--blue);
-  color: var(--white);
-}
-
-.distance-fallback-badge {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 22px;
-  border: 3px solid rgba(255, 255, 255, 0.88);
-  border-radius: 999px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.distance-fallback ul {
-  display: grid;
-  gap: 11px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.distance-fallback li {
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-.distance-fallback li:last-child {
-  border-bottom: 0;
-}
-
-.distance-fallback strong,
-.distance-fallback span {
-  display: block;
-  color: var(--white);
-  font-size: 0.78rem;
-  line-height: 1.35;
-}
-
-.distance-fallback strong {
-  font-weight: 900;
-}
-
-.distance-fallback span {
-  text-align: right;
-}
-
 .distance-card figcaption {
   padding: 14px 16px 15px;
   background: var(--white);
@@ -2187,28 +2125,6 @@ main {
   .distance-card img {
     height: auto;
     min-height: 0;
-  }
-
-  .distance-fallback {
-    min-height: 360px;
-    padding: 24px 18px;
-  }
-
-  .distance-fallback-badge {
-    width: 62px;
-    height: 62px;
-    margin-bottom: 16px;
-    font-size: 1.18rem;
-  }
-
-  .distance-fallback li {
-    gap: 10px;
-    padding: 9px 0;
-  }
-
-  .distance-fallback strong,
-  .distance-fallback span {
-    font-size: 0.68rem;
   }
 
   .distance-card figcaption {

@@ -565,24 +565,39 @@ export default function Home() {
 
       <section className="location" id="localizacao">
         <div className="melo-container location-grid">
-          <div className="section-title">
+          <div className="section-title location-copy">
             <span>Onde estamos</span>
             <h1>No Centro de Balneário Camboriú.</h1>
             <p>
               Av. do Estado Dalmo Vieira, 5029 - Centro, Balneário Camboriú - SC,
               88330-663.
             </p>
+            <p>
+              Próximo ao Balneário Shopping, Parque dos Dinossauros, Roda Gigante,
+              Parque Unipraias e com acesso fácil à BR-101.
+            </p>
             <a className="outline-button" href={mapsUrl} target="_blank" rel="noreferrer">
               Ver rota no mapa
             </a>
           </div>
-          <iframe
-            title="Mapa do Camboriú Hotel"
-            className="map"
-            src="https://www.google.com/maps?q=Av.%20do%20Estado%20Dalmo%20Vieira%2C%205029%20-%20Centro%2C%20Balne%C3%A1rio%20Cambori%C3%BA%20-%20SC%2C%2088330-663&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <div className="location-visuals">
+            <figure className="distance-card">
+              <img
+                src="/hotel/distancias-pontos-turisticos.png"
+                alt="Mapa visual com a distância do Camboriú Hotel até pontos turísticos da região"
+              />
+              <figcaption>Fácil acesso aos principais pontos turísticos da região.</figcaption>
+            </figure>
+            <div className="map-card">
+              <iframe
+                title="Mapa do Camboriú Hotel"
+                className="map"
+                src="https://www.google.com/maps?q=Av.%20do%20Estado%20Dalmo%20Vieira%2C%205029%20-%20Centro%2C%20Balne%C3%A1rio%20Cambori%C3%BA%20-%20SC%2C%2088330-663&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

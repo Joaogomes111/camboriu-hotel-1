@@ -1248,16 +1248,62 @@ main {
 
 .location-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 70px;
+  grid-template-columns: minmax(260px, 0.62fr) minmax(0, 1.38fr);
+  gap: 52px;
   align-items: center;
+}
+
+.location-copy p + p {
+  margin-top: -8px;
+}
+
+.location-visuals {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.82fr) minmax(260px, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.distance-card,
+.map-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #f8f8f8;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.15);
+}
+
+.distance-card {
+  border-bottom: 5px solid var(--blue);
+}
+
+.distance-card img {
+  width: 100%;
+  height: 430px;
+  background: var(--blue);
+  object-fit: contain;
+  object-position: center center;
+}
+
+.distance-card figcaption {
+  padding: 14px 16px 15px;
+  background: var(--white);
+  color: var(--blue-dark);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1.45;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.map-card {
+  border-bottom: 5px solid var(--blue-dark);
 }
 
 .map {
   width: 100%;
   height: 430px;
   border: 0;
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.15);
 }
 
 .final-cta {
@@ -1432,6 +1478,15 @@ main {
   .room-tabs,
   .amenities-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .location-visuals {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  .distance-card img,
+  .map {
+    height: 400px;
   }
 
   .breakfast-player {
@@ -2050,6 +2105,31 @@ main {
     flex: 0 0 74px;
     height: 56px;
     scroll-snap-align: start;
+  }
+
+  .location-copy p + p {
+    margin-top: -4px;
+  }
+
+  .location-visuals {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .distance-card,
+  .map-card {
+    box-shadow: 0 16px 34px rgba(0, 30, 64, 0.14);
+  }
+
+  .distance-card img {
+    height: auto;
+    min-height: 0;
+  }
+
+  .distance-card figcaption {
+    padding: 12px 14px 13px;
+    font-size: 0.68rem;
+    line-height: 1.4;
   }
 
   .map {

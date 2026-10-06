@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import "./globals.css";
 
 const GTM_ID = "GTM-52WCR9PQ";
+const GA_ID = "G-8HZV865WZY";
 
 export const metadata: Metadata = {
   title: "Camboriú Hotel | Hospedagem em Balneário Camboriú",
@@ -56,6 +58,7 @@ export default function RootLayout({
         </noscript>
         {children}
       </body>
+      <GoogleAnalytics gaId={GA_ID} />
     </html>
   );
 }

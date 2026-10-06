@@ -6,12 +6,6 @@ import distanceMapImage from "./assets/distancias-pontos-turisticos.png";
 const whatsappUrl =
   "https://api.whatsapp.com/send?phone=5547992290029&text=Ol%C3%A1!%20Gostaria%20de%20realizar%20uma%20reserva%20no%20Cambori%C3%BA%20Hotel.";
 
-declare global {
-  interface Window {
-    dataLayer?: Array<Record<string, unknown>>;
-  }
-}
-
 const mapsUrl =
   "https://www.google.com/maps/search/?api=1&query=Av.%20do%20Estado%20Dalmo%20Vieira%2C%205029%20-%20Centro%2C%20Balne%C3%A1rio%20Cambori%C3%BA%20-%20SC%2C%2088330-663";
 

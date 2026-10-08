@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import distanceMapImage from "./assets/distancias-pontos-turisticos.png";
+import ReservationDialog from "./ReservationDialog";
 
 const whatsappUrl =
   "https://api.whatsapp.com/send?phone=5547992290029&text=Ol%C3%A1!%20Gostaria%20de%20realizar%20uma%20reserva%20no%20Cambori%C3%BA%20Hotel.";
@@ -167,7 +168,9 @@ export default function Home() {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [roomPhotoIndexes, setRoomPhotoIndexes] = useState<Record<string, number>>({});
   const [amenitiesPage, setAmenitiesPage] = useState(0);
+  const [reservationRoom, setReservationRoom] = useState<string | null>(null);
   const amenitiesRef = useRef<HTMLDivElement>(null);
+  const closeReservation = useCallback(() => setReservationRoom(null), []);
 
   const activeGallery = gallery[galleryIndex];
   const galleryThumbs = gallery.map((photo, index) => ({ ...photo, index }));
@@ -289,7 +292,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="booking-strip" id="reserva" aria-label="Reserva direta pelo WhatsApp">
+      <section className="booking-strip" id="reserva" aria-label="Reserva direta">
         <div className="melo-container booking-inner">
           <div className="booking-panel">
             <div className="booking-field">
@@ -305,15 +308,13 @@ export default function Home() {
               <strong>Centro de Balneário Camboriú</strong>
             </div>
           </div>
-          <a
+          <button
             className="reserve-button"
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => trackWhatsAppClick("booking_strip")}
+            type="button"
+            onClick={() => setReservationRoom("")}
           >
             Reservar agora
-          </a>
+          </button>
         </div>
       </section>
 
@@ -431,14 +432,9 @@ export default function Home() {
                         ))}
                       </div>
                     ) : null}
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => trackWhatsAppClick(`room_${room.id}`)}
-                    >
+                    <button type="button" onClick={() => setReservationRoom(room.title)}>
                       Reservar agora
-                    </a>
+                    </button>
                   </div>
                 </article>
               );
@@ -601,19 +597,17 @@ export default function Home() {
           <div>
             <h1>Reserve sua hospedagem direto com o Camboriú Hotel.</h1>
             <p>
-              Chame no WhatsApp para consultar valores, disponibilidade e tirar
-              dúvidas com a equipe.
+              Envie sua solicitação para consultar valores e disponibilidade
+              com a equipe.
             </p>
           </div>
-          <a
+          <button
             className="reserve-button"
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => trackWhatsAppClick("final_cta")}
+            type="button"
+            onClick={() => setReservationRoom("")}
           >
-            Chamar no WhatsApp
-          </a>
+            Consultar disponibilidade
+          </button>
         </div>
       </section>
 
@@ -628,6 +622,7 @@ export default function Home() {
             <a href="#galeria">Galeria</a>
             <a href="#localizacao">Localização</a>
             <a href="#contato">Contato</a>
+            <a href="/privacidade">Privacidade</a>
           </div>
           <div>
             <h3>Contato</h3>
@@ -659,6 +654,13 @@ export default function Home() {
       >
         <WhatsAppIcon className="float-whats-icon" />
       </a>
+      {reservationRoom !== null ? (
+        <ReservationDialog
+          initialRoom={reservationRoom}
+          roomNames={rooms.map((room) => room.title)}
+          onClose={closeReservation}
+        />
+      ) : null}
     </main>
   );
 }

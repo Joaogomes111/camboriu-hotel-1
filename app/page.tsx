@@ -7,9 +7,6 @@ import ReservationDialog from "./ReservationDialog";
 const whatsappUrl =
   "https://api.whatsapp.com/send?phone=5547992290029&text=Ol%C3%A1!%20Gostaria%20de%20realizar%20uma%20reserva%20no%20Cambori%C3%BA%20Hotel.";
 
-const mapsUrl =
-  "https://www.google.com/maps/search/?api=1&query=Av.%20do%20Estado%20Dalmo%20Vieira%2C%205029%20-%20Centro%2C%20Balne%C3%A1rio%20Cambori%C3%BA%20-%20SC%2C%2088330-663";
-
 const navItems = [
   ["Acomodações", "#acomodacoes"],
   ["Galeria", "#galeria"],
@@ -224,16 +221,9 @@ export default function Home() {
               <a className="top-icon-link" href="#home" aria-label="Ir para o início">
                 <HomeIcon className="top-icon home-icon" />
               </a>
-              <a
-                className="top-phone"
-                href={whatsappUrl}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => trackWhatsAppClick("top_phone")}
-              >
-                <WhatsAppIcon className="top-icon whats-icon" />
-                47 99229-0029
-              </a>
+              <button className="top-phone" type="button" onClick={() => setReservationRoom("")}>
+                Solicitar reserva
+              </button>
               <div className="top-social" aria-label="Redes sociais">
                 <a
                   href="https://www.instagram.com/camboriuhotel/?hl=pt-br"
@@ -276,11 +266,24 @@ export default function Home() {
               id="site-menu"
               aria-label="Navegação principal"
             >
-              {navItems.map(([label, href]) => (
-                <a href={href} key={label} onClick={() => setIsMenuOpen(false)}>
-                  {label}
-                </a>
-              ))}
+              {navItems.map(([label, href]) =>
+                href === "#reserva" || href === "#contato" ? (
+                  <button
+                    type="button"
+                    key={label}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setReservationRoom("");
+                    }}
+                  >
+                    {label}
+                  </button>
+                ) : (
+                  <a href={href} key={label} onClick={() => setIsMenuOpen(false)}>
+                    {label}
+                  </a>
+                ),
+              )}
             </nav>
           </div>
         </header>
@@ -353,15 +356,9 @@ export default function Home() {
               e momentos em família. A equipe oferece suporte para quem deseja
               conhecer as atrações do turismo local.
             </p>
-            <a
-              className="outline-button"
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackWhatsAppClick("feature_reception")}
-            >
-              Falar com a recepção
-            </a>
+            <button className="outline-button" type="button" onClick={() => setReservationRoom("")}>
+              Consultar disponibilidade
+            </button>
           </div>
         </div>
       </section>
@@ -567,9 +564,9 @@ export default function Home() {
               Próximo ao Balneário Shopping, Parque dos Dinossauros, Roda Gigante,
               Parque Unipraias e com acesso fácil à BR-101.
             </p>
-            <a className="outline-button" href={mapsUrl} target="_blank" rel="noreferrer">
-              Ver rota no mapa
-            </a>
+            <button className="outline-button" type="button" onClick={() => setReservationRoom("")}>
+              Solicitar reserva
+            </button>
           </div>
           <div className="location-visuals">
             <figure className="distance-card">

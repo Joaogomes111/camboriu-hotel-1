@@ -155,7 +155,12 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 9px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--white);
+  cursor: pointer;
+  font: inherit;
   letter-spacing: 0.12em;
 }
 
@@ -222,8 +227,14 @@ main {
   width: 100%;
 }
 
-.nav-menu a {
+.nav-menu a,
+.nav-menu button {
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--white);
+  cursor: pointer;
+  font-family: inherit;
   font-size: 0.94rem;
   font-weight: 700;
   line-height: 1;
@@ -239,7 +250,9 @@ main {
 }
 
 .nav-menu a:hover,
-.nav-menu a:focus-visible {
+.nav-menu a:focus-visible,
+.nav-menu button:hover,
+.nav-menu button:focus-visible {
   color: #d7ecff;
 }
 
@@ -395,7 +408,7 @@ main {
 }
 
 .reserve-button,
-.room-copy button {
+.room-copy > button {
   border: 0;
   cursor: pointer;
   font-family: inherit;
@@ -745,6 +758,8 @@ main {
   padding: 0 32px;
   border: 2px solid var(--blue);
   color: var(--blue);
+  cursor: pointer;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1014,7 +1029,7 @@ main {
   object-fit: cover;
 }
 
-.room-copy button {
+.room-copy > button {
   width: max-content;
   padding: 13px 28px 11px;
   background: var(--blue);
@@ -1929,7 +1944,8 @@ main {
     display: grid;
   }
 
-  .nav-menu a {
+  .nav-menu a,
+  .nav-menu button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1946,7 +1962,7 @@ main {
     white-space: normal;
   }
 
-  .nav-menu a:last-child {
+  .nav-menu :last-child {
     border-bottom: 0;
   }
 
@@ -2167,7 +2183,7 @@ main {
     height: 43px;
   }
 
-  .room-copy button {
+  .room-copy > button {
     width: 100%;
     justify-content: center;
     text-align: center;
